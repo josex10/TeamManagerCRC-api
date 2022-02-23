@@ -8,6 +8,10 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.routeUser = '/api/user/';
+        this.routePlayer = '/api/player/';
+        this.routeAuth = '/api/auth/';
+        this.routePosition = '/api/position';
+        this.RouteTeam = '/api/team';
 
         //CONECTAR DN
         this.connectarDB();
@@ -26,7 +30,11 @@ class Server {
     routes(){
         
         this.app.use(this.routeUser, require('../routes/user.routes'));
-
+        this.app.use(this.routePlayer, require('../routes/TMCRC.player.route'));
+        this.app.use(this.routeAuth, require('../routes/TMCRC.auth.route'));
+        this.app.use(this.routePosition, require('../routes/TMCRC.position.route'));
+        this.app.use(this.RouteTeam, require('../routes/TMCRC.team.route'));
+        
     }
 
     middlewares(){
@@ -37,7 +45,7 @@ class Server {
 
     listen(){
         this.app.listen(this.port, ()=>{
-            console.log(`My RESTServer Class is running on port: ${this.port}`);
+            console.log(`The TMCRC Server is running on port: ${this.port}`);
         });
     }
 
